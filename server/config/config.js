@@ -1,13 +1,13 @@
-env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'development';
 
-// mongoose.connect(process.env.DEV_MONGODB || 'mongodb://localhost:27017/TodoApp');
+if(env == 'development' || env == 'test') {
+    var config = require('./config.json');
+    console.log(config);
+    var envConfig = config[env];
 
-if(env == 'development') {
-    process.env.PORT = 3000;
-    process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoApp';
-} else if (env == 'test') {
-    process.env.PORT = 3000;
-    process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoAppTest';
+    Object.keys(envConfig).forEach((key) => {
+        process.env[key] = envConfig[key];
+    });
 }
 
 console.log("***** env ::", env);
