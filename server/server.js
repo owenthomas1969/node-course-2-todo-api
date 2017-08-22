@@ -17,12 +17,12 @@ var port = process.env.PORT;
 app.use(bodyParser.json());
 
 app.post('/todos', authenticate, (req, res) => {
-
+console.log('New ToDo');
     var todo = new Todo({
         text: req.body.text,
         _creator: req.user._id
     });
-
+    console.log('Save ToDo');
     todo.save().then((doc) => {
         res.send(doc);
     }, (e) => {
